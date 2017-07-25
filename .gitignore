@@ -1,5 +1,5 @@
-# npm debugging logs
-npm-debug.log*
+# all logs,  npm debugging logs
+*.log
 
 # project dependencies
 node_modules
