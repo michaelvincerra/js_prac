@@ -1,12 +1,11 @@
-/**
- */
+/* */
 
 
-'use strict';
+"use strict";
 // es6  feature: block-scoped  "let" declaration
 const sentences = [
-    {subject: 'Javascript', verb: 'is', object: 'great' },
-    {subject: 'Tigers', verb: 'are', object: 'burning bright'},
+    {subject: "Javascript", verb: "is", object: "great" },
+    {subject: "Tigers", verb: "are", object: "burning bright"},
 ];
 
 //es6 object destructuring

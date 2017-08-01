@@ -7,4 +7,7 @@ node_modules
 #temporary files
 *.tmp
 *~
- 
+
+# keep track of ES6 source, but not the ES5 genereated from it. 
+dist
+public/dist 

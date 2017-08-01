@@ -8,23 +8,25 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/nullaosta/js_prac.git"
+    "url": "git+https://github.com/michaelvincerra/js_prac.git"
   },
+
   "keywords": [
     "javascript"
   ],
   "author": "michael vincerra",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/nullaosta/js_prac/issues"
+    "url": "https://github.com/michaelvincerra/js_prac/issues"
   },
-  "homepage": "https://github.com/nullaosta/js_prac#readme",
+  "homepage": "https://github.com/michaelvincerra/js_prac#readme",
   "dependencies": {
     "underscore": "^1.8.3"
   },
   "devDependencies": {
     "babel-preset-es2015": "^6.24.1",
     "gulp": "^3.9.1",
-    "gulp-babel": "^6.1.2"
+    "gulp-babel": "^6.1.2",
+    "gulp-eslint": "^4.0.0"
   }
 }
