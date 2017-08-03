@@ -30,6 +30,28 @@ while (funds > 1 && funds < 100) {
     let bets = {crown: 0, anchor: 0, heart: 0, spade: 0, club: 0, diamond: 0};
 
     let totalBet = rand(1, funds);
+
+    switch(totalBet) {
+        case 7:
+            totalBet = funds;
+            break;
+        // case 11:   // fall-through execution: if under two test cases, the result is the same, you may stack them.
+        // case 13:
+        //     totalBet = 0;
+        //     break;
+        case 13:
+            funds = funds - 1;    // If using a fall-through execution, ALWAYS annotate its purpose;
+
+        case 11:
+            totalBet = 0;
+            break;
+        case 21:
+            totalBet = 21;
+            break;
+        default:
+            console.log("No superstitions here, Tommy boy!")
+    }
+
     if (totalBet === 7) {
         totalBet = funds;
         bets.heart = totalBet;
@@ -68,6 +90,8 @@ while (funds > 1 && funds < 100) {
 }
 
 console.log(`\tending funds: ${funds}`);
+
+
 
 
 
