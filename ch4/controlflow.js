@@ -30,27 +30,32 @@ while (funds > 1 && funds < 100) {
     let bets = {crown: 0, anchor: 0, heart: 0, spade: 0, club: 0, diamond: 0};
 
     let totalBet = rand(1, funds);
-
-    switch(totalBet) {
-        case 7:
-            totalBet = funds;
-            break;
-        // case 11:   // fall-through execution: if under two test cases, the result is the same, you may stack them.
-        // case 13:
-        //     totalBet = 0;
-        //     break;
-        case 13:
-            funds = funds - 1;    // If using a fall-through execution, ALWAYS annotate its purpose;
-
-        case 11:
-            totalBet = 0;
-            break;
-        case 21:
-            totalBet = 21;
-            break;
-        default:
-            console.log("No superstitions here, Tommy boy!")
+    if(totalBet === 13) {
+        console.log("Malaugurio! Smettere di giocare!");
+        continue;
     }
+        switch (totalBet) {
+            case 7:
+                totalBet = funds;
+                break;
+            // case 11:     // fall-through execution: if under two test cases, the result is the same, you may stack them.
+            // case 13:
+            //     totalBet = 0;
+            //     break;
+            case 13:
+                funds = funds - 1;     // If using a fall-through execution, ALWAYS annotate its purpose;
+                                       // Because there is no break statement, we "fall through" to next case.
+            case 11:
+                totalBet = 0;
+                break;
+            case 21:
+                totalBet = 21;
+                break;
+            default:                   // Used if no other case matches.
+                console.log("No superstitions here, Tommy boy!")
+                break;
+        }
+
 
     if (totalBet === 7) {
         totalBet = funds;
@@ -83,6 +88,7 @@ while (funds > 1 && funds < 100) {
     for (let die = 0; die < hand.length; die++) {
         let face = hand[die];
         if (bets[face] > 0) winnings = winnings + bets[face];
+
     }
 
     funds = funds + winnings;
@@ -90,11 +96,17 @@ while (funds > 1 && funds < 100) {
 }
 
 console.log(`\tending funds: ${funds}`);
+console.log("Mi dispiace, Tomaso. In bocca al lupo la prossima volta.")
 
 
-
-
-
+// const bigArrayOfNumbers = [357, 20, 24, 72, 49]
+//
+// let firstPrime = null;
+// for(let n of bigArrayOfNumbers){
+//     if(isPrime(n)) {
+//         firstPrime = n;
+//     }
+// };
 
 
 
