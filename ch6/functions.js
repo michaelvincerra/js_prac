@@ -1,0 +1,40 @@
+/**
+ * Created by michaelevan on 8/4/17.
+ */
+
+'use strict';
+
+function getGreeting() {
+    return "Buongiorn a Tutti!"
+}
+
+getGreeting();
+
+
+
+function f(x) {
+    console.log(`inside f: x=${x}`);
+    x=5;
+    console.log(`inside f: x=${x} (after assignment)`);
+}
+
+let x = 3;
+console.log(`before calling f: x =${x}`);
+f(x);     // Returns the value that f(x) resolves to, above.
+console.log(`after calling f: x =${x}`);
+
+
+function f(o) {
+    o = {
+        message: "new object!"
+    };
+    console.log(`inside f: o.message = "${o.message}" (after assignment)`);
+}
+let o  = {message: 'initial value'};
+
+console.log(`before calling f: o.message="${o.message}"`);
+f(o);
+
+console.log(`after calling f: o.message="${o.message}"`);
+
+
