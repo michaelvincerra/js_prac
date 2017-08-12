@@ -109,14 +109,36 @@ getSentence(o);
 // getSentence(arr);
 
 
-function addPrefix(prefix, ...words) {
-    const prefixedWords = [];  // list building pattern?
-    for(let i=0; i<words.length; i++){
-        prefixedWords[i] = prefix + words[i];
-    }
-    return prefixedWords;
+///// Destructuring Arguments
+
+// function addPrefix(prefix, ...words) {
+//     const prefixedWords = [];  // list building pattern?
+//     for(let i=0; i<words.length; i++){
+//         prefixedWords[i] = prefix + words[i];
+//     }
+//     return prefixedWords;
+// }
+// addPrefix("con", "verse", "vex");
+
+
+///// Default Arguments
+
+function f(a, b = "default", c=3){
+    return `${a} - ${b} - ${c}`;
 }
-addPrefix("con", "verse", "vex");
+
+console.log(f(5, 6, 7));
+console.log(f(5, 6));
+console.log(f(5));
+console.log(f());
+
+const p = {                                 // Object
+    name: "Wallace",                        //primitive property; key, value pair
+    bark: function() {return "Woof!";},     // function property (expresses value of pair)
+}
+
+console.log(p);
+
 
 
 
