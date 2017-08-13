@@ -80,19 +80,19 @@
 
 //////// DESTRUCTURING ARGUMENTS
 
-function getSentence({subject, verb, object}) {
-    return `${subject} ${verb} ${object}`;
-}
-
-const o = {
-    subject: "I",
-    verb: "love",
-    object: 'JavaScript!'
-};
-
-const arr = ["I", "love", "JavaScript as an array!"];
-
-getSentence(o);
+// function getSentence({subject, verb, object}) {
+//     return `${subject} ${verb} ${object}`;
+// }
+//
+// const o = {
+//     subject: "I",
+//     verb: "love",
+//     object: 'JavaScript!'
+// };
+//
+// const arr = ["I", "love", "JavaScript as an array!"];
+//
+// getSentence(o);
 
 
 // function getSentence({subject, verb, object}) {
@@ -123,21 +123,100 @@ getSentence(o);
 
 ///// Default Arguments
 
-function f(a, b = "default", c=3){
-    return `${a} - ${b} - ${c}`;
+// function f(a, b = "default", c=3){
+//     return `${a} - ${b} - ${c}`;
+// }
+
+//
+// console.log(f(5, 6, 7));
+// console.log(f(5, 6));
+// console.log(f(5));
+// console.log(f());
+//
+// const p = {                                 // Object
+//     name: "Wallace",                        //primitive property; key, value pair
+//     bark: function() {return "Woof!";},     // function property (expresses value of pair)
+// }
+//
+// console.log(p);
+//
+// const q = {
+//     name: "Wallace",
+//     speak() {return `My name is ${this.name}!`;},
+// }
+// q.speak();
+//
+// ///Big Arrow Notation
+//
+// const f1 = function() {return "hello!"}
+// console.log(f1());
+// // or
+// const f11 = () => "hello!"
+// console.log(f11());
+//
+// const f2 = function(name) {return `hello ${name}!`;}
+// console.log(f2());
+// // or
+// const f22 = name => `Hello, ${name}!`;
+// console.log(f22());
+//
+// const f3 = function(a, b) {return a+b; }
+// console.log(f3());
+// //or
+// const f33 = (a,b) => a+b;
+// console.log(f33());
+
+
+/// BIG ARROW NOTATION USING 'this'
+
+// const o = {
+//     name: 'Silvia',
+//     greetBackwards: function(){
+//         const getReverseName = () => {
+//             let nameBackwards = '';
+//             for(let i = this.name.length-1; i>=0; i--){
+//                 nameBackwards += this.name[i];
+//             }
+//             return nameBackwards;
+//         };
+//     },
+// };
+// o.greetBackwards();
+//
+
+/// CALL, APPLY, AND BIND
+const barbera = {name: "Barbera"};
+const nebbiolo = {name: "Neibbiolo"};
+
+
+function greet() {
+    return `Hello, I'm ${this.name}!`;
 }
 
-console.log(f(5, 6, 7));
-console.log(f(5, 6));
-console.log(f(5));
-console.log(f());
+// greet();
+// greet.call(barbera);'call' allows use to call a function as if it were a method by provingin it an object to bind 'this' to
+// greet.call(nebbiolo);
 
-const p = {                                 // Object
-    name: "Wallace",                        //primitive property; key, value pair
-    bark: function() {return "Woof!";},     // function property (expresses value of pair)
+
+function update(grapeType, region) {
+    this.grapeType = grapeType;
+    this.region = region;
 }
 
-console.log(p);
+
+update.call(barbera, 'Rosso', 'Piemonte');      // 'call' takes arguments directly.
+update.call(pino_grigio, "Bianco", "Veneto");
+
+update.apply(barbera, ["Rosso",  "Piemonte"]);  // 'apply' takes its arguments as an array.
+update.apply(pino_grigio, ["Bianco", "Veneto"]);
+
+
+const updateBarbera = update.bind(barbera);  /// 'bind' allows you to permanently associate a value for 'this' with a function.
+
+updateBarbera('Rosso', "Piemonte");
+
+updateBarbera.call(nebbiolo, "Rosso", "Piemonte");
+
 
 
 
