@@ -28,3 +28,14 @@ const arr3 = [1,2,3,4];
 arr3.copyWithin(1,2);
 arr3.copyWithin(2,0,2);
 arr3.copyWithin(0, -3, -1);
+
+
+
+// FILL ARRAY WITH A SPECIFIC VALUE
+// Set any any number of fixed elements with a fixed value in place.
+const arr4 = new Array(5).fill(1);
+arr4.fill("a");
+arr4.fill("b", 1);
+arr4.fill("c", 2, 4);
+arr4.fill(5.5, -4);
+arr4.fill(0, -3, 1); 
