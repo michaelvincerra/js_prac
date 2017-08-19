@@ -38,4 +38,13 @@ arr4.fill("a");
 arr4.fill("b", 1);
 arr4.fill("c", 2, 4);
 arr4.fill(5.5, -4);
-arr4.fill(0, -3, 1); 
+arr4.fill(0, -3, 1);
+
+
+// Reversing and sorting arrays
+const arr5 = [1,2,3,4,5];
+arr5.reverse();
+
+
+const arr6 = [5,3,2,4,1];
+arr6.sort();
