@@ -14,7 +14,14 @@ arr1.slice(-2,-1);
 
 /// SPLICE
 const arr2 = [1,5,7];
-arr2.slice(1, 0, 2, 3, 4);
-arr2.slice(5,0,6);
-arr2.slice(1, 2);
-arr2.slice(2, 1, 'a', 'b');
+arr2.splice(1, 0, 2, 3, 4);
+arr2.splice(5,0,6);
+arr2.splice(1, 2);
+arr2.splice(2, 1, 'a', 'b');
+
+
+
+// CUTTING AND REPLACING WITHIN AN ARRAY
+
+const arr3 = [1,2,3,4;
+arr3.copyWithin(1,2);
