@@ -83,6 +83,75 @@ console.log(arr8.indexOf(9));
 
 console.log(arr8.indexOf("a", 5));
 console.log(arr8.indexOf(5,5));
-console.log(arr8.lastIndexOf(5, 4));
+console.log(arr8.lastIndexOf(5, 4));   // where 5 is value match, and 4 is start of new index (where search starts)
 console.log(arr8.lastIndexOf(true, 3));
+
+//findIndex
+// Returns an index if a match; otherwise, if not, returns -1.
+
+const arr9 = [{id: 5, name: "Giovanna"}, {id: 7, name: "Francesco"}];
+
+console.log(arr9.findIndex(o => o.id === 5));
+console.log(arr9.findIndex(o => o.name === "Francesco"));
+console.log(arr9.findIndex(o => o === 3));
+console.log(arr9.findIndex(o => o.id === 17));
+
+
+// FIND function
+// find returns the element searched for; otherwise "null" if not found.
+
+const arr10 = [{id: 5, name: "Giovanna"}, {id: 7, name: "Francesco"}];
+
+console.log(arr10.find(o => o.id === 7));
+console.log(arr10.find(o => o.name === 2));
+
+
+// FIND using 'this'
+
+class Person {
+    constructor(name) {
+        this.name = name;
+        this.id  = Person.nextID++;
+    }
+}
+Person.nextID = 0;
+const jamie = new Person("Jamie"),
+    juliet = new Person("Juliet"),
+    peter = new Person("Peter"),
+    jay = new Person("Jay");
+
+const arr11 = [jamie, juliet, peter, jay];
+
+//option 1: direct comparison of ID:
+console.log(arr11.find(p => p.id === juliet.id));
+
+//option 2: using "this" arg:
+console.log(arr11.find(p => p.id === this.id, juliet));
+
+
+// SOME and EVERY: Membership methods
+// some returns 'true' if it finds an item that meets criteria
+// some returns 'false' if not
+// every returns true if every element in the array passes criteria
+
+const arr12 = [5, 7, 12, 15, 17];
+
+console.log(arr12.some(x => x%2===0));
+console.log(arr12.some(x => Number.isInteger(Math.sqrt(x))));
+
+
+const arr13 = [4, 6, 16, 36];
+
+console.log(arr13.every(x => x%2===0));                                 // All numbers are divisible by 2/ mod 0
+console.log(arr13.every(x => Number.isInteger(Math.sqrt(x))));          // 6 is not a square
+
+
+
+
+
+
+
+
+
+
 
