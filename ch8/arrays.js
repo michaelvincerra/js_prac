@@ -33,6 +33,7 @@ arr3.copyWithin(0, -3, -1);
 
 // FILL ARRAY WITH A SPECIFIC VALUE
 // Set any any number of fixed elements with a fixed value in place.
+// Array(5) indicates the number of elements in the list; fill(1) indicates added item; can be changed as shown.
 const arr4 = new Array(5).fill(1);
 arr4.fill("a");
 arr4.fill("b", 1);
@@ -42,9 +43,12 @@ arr4.fill(0, -3, 1);
 
 
 // Reversing and sorting arrays
+// reverses order in place
 const arr5 = [1,2,3,4,5];
 arr5.reverse();
 
 
 const arr6 = [5,3,2,4,1];
+// sorts an array in place
 arr6.sort();
+
