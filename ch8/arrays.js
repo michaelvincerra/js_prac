@@ -148,10 +148,60 @@ console.log(arr13.every(x => Number.isInteger(Math.sqrt(x))));          // 6 is 
 
 
 
+// MAP AND FILTER
+// Create a custom function using the arrow notation.
+
+// const cart = [{name:"Widget", price: 9.95}, {name: "Gadget", price: 22.95}];
+// const names = cart.map(x => x.name);
+// const prices = cart.map(x => x.price);
+// const discountPrices = prices.map(x => x*0.8);
+// // const lcNames = names.map(String.toLowerCase());
+// const lcNames = names.map(x => x.toLowerCase());
 
 
 
 
+const items = ["Widget", "Gadget"];
+const prices = [9.95, 22.95];
+
+const cart = items.map((x, i) => ({name: x, price: prices[i]}));
+
+// cart = [{name:"Widget", price: 9.95}, {name: "Gadget", price: 22.95}];
 
 
+// create a deck of playing cards
+const cards = [];
+for(let suit of ['H', 'C', 'D', 'S']) // hearts, clubs, etc.
+    for(let value=1; value<=13; value++)
+        cards.push({ suit, value });
+
+// get all cards with a value of 2
+
+console.log(cards.filter(c => c.value === 2));
+
+
+// Determine the length only.
+
+// get all diamonds
+console.log(cards.filter(c => c.suit === 'D'));
+
+// get all face cards
+console.log(cards.filter(c => c.value >10));
+
+// get all face cards that are hearts
+console.log(cards.filter(c => c.value > 10 && c.suit === 'H'));
+
+
+function cardToString(c) {
+    const suits = {'H': '\u2665', 'C': '\u2663', 'D': '\u2666', 'S': '\u2660'};
+    const values = {1: 'A', 11: "J", 12: 'Q', 13: 'K'};
+    for(let i=2; i<=10; i++) values[i] = i; 
+    return values[c.value]+ suits[c.suit];
+}
+
+// get all cards with a value of 2
+cards.filter(c => c.value === 2);
+.map(cardToString); //
+
+// get all face card that are hearts.
 
