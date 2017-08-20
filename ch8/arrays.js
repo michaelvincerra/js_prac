@@ -191,13 +191,14 @@ console.log(cards.filter(c => c.value >10));
 // get all face cards that are hearts
 console.log(cards.filter(c => c.value > 10 && c.suit === 'H'));
 
-=
+
 function cardToString(c) {
     const suits = {'H': '\u2665', 'C': '\u2663', 'D': '\u2666', 'S': '\u2660'};
     const values = {1: 'A', 11: "J", 12: 'Q', 13: 'K'};
     for(let i=2; i<=10; i++) values[i] = i;
     return values[c.value]+ suits[c.suit];
 }
+
 
 // get all cards with a value of 2
 cards.filter(c => c.value === 2)
@@ -216,8 +217,51 @@ const arr14 = [5, 7, 2, 4];
 // function takes 2 params: accumulator (a), and the current array element (x)
 // 'a' is not assigned; not needed
 
-const sum = arr14.reduce((a,x) => a += x, 0);
+// const sum = arr14.reduce((a,x) => a += x, 0);
+
+
+// REDUCED MODIFIED: Initial accumulator is undefined;
+// takes first value of array as  initial value; then calls the function with the 2ND element (7).
+//
 
 const arr15 = [5, 7, 2, 4];
-const sum = arr14.reduce((a, x) => a += x);
+
+// Function return teh sum of a and x(12), which becomes , value of next step
+// Function is called for third array element(2). Function returns the sum of a and x(14)
+// Function returns the sum of a and x(18), which is return value of REDUCE--then assigned to variable 'sum'
+// 'a' is never assigned; used only as accumulator
+// 'x' assigns index pos
+
+const sum = arr15.reduce((a, x) => a += x);
+
+
+const words = ["Beachball", "Rodeo", "Angel", "Aardvark", "Xylophone", "November", "Chocolate", "Papaya", "Unicycle", "Bali"];
+
+// Function checks the accumulator to see if has a property for first letter in the word; if not id ADDS
+// an empty array ( because no a.B, it creates one whose value is an empty array. IOW: "A" object holds "Angel", "Aardvark".
+const alphabetical = words.reduce((a, x)=> {
+   if(!a[x[0]]) a[x[0]] = [];
+    a[x[0]].push(x);
+    return a; }, {});
+
+console.log(alphabetical);
+
+// COMPUTATIONAL STATISTICS, Donal Knuth's algorithm for calculating variance
+
+const data = [3.3, 5, 7.2, 12, 4, 6, 10.3];
+const stats = data.reduce((a, x) => {
+    a.N++;
+    let delta = x - a.mean;
+    a.mean += delta/a.N;
+    a.M2 += delta*(x -a.mean);
+    return a;
+}, {N: 0, mean: 0, M2:0});
+if(stats.N > 2) {
+    stats.variance = stats.M2 / (stats.N - 1);
+    stats.stdev = Math.sqrt(stats.variance);
+}
+
+console.log(stats);
+
+
 
