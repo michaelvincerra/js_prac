@@ -291,3 +291,33 @@ const html = '<ul><li>' +attributes.join('</li><li>') + '</li></ul>';
 
 console.log(attributes);
 
+/*
+REDUCE
+reduce      Accumulator(initial value, or return value of last invocation)
+
+
+ARR MANIPULATION
+To create a stack:          push (returns new length)       in place
+To get subarray             slice                           copy
+To add or remove elements   splice                          in place
+To cut and replace w/in     copyWithin                      in place
+To fill an  array           fill                            in place
+To reverse array            reverse                         in place
+To sort and array           sort(pass function)             in place
+
+TO FIND...
+Index of an item            indexOf
+Last index of an item       lastIndexOf(simple value)
+Item itself                 find
+If array has matching item  some
+If ALL elements match crit  every
+
+TO TRANSFORM EVERY ELEMENT IN ARRAY...
+Transform every element in arr      map             copy (not in-place)
+Eliminate elements in arr           filter          copy (not in-place)
+Transform arr into other datatype   reduce          copy (not in-place)
+Concvert elements to strings, join  join            copy (not in-place)
+
+
+ */
+
