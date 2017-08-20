@@ -265,3 +265,29 @@ console.log(stats);
 
 
 
+const words2 = ["Beachball", "Rodeo", "Angel", "Aardvark", "Xylophone", "November", "Chocolate", "Papaya", "Unicycle", "Bali"];
+
+// Function checks the length of words to determine those that have more than 6 chars and returns them
+
+const longWords = words2.reduce((a, w)=> w.length>6 ? a+" "+w: a, "").trim();
+console.log(longWords);
+
+
+// STRING JOINS WITH Array.prototype.join
+
+const arr16 = [1, null, "Caesar", "Agustus", "Anno Dommini", true, undefined];
+delete arr16[3];
+arr16.join();
+arr16.join('');
+arr16.join(' -- ');
+
+console.log(arr16);
+
+
+// Can be used to create HTML <ul> lists, too.
+
+const attributes = ["Flessibile", "Premuroso", "Generoso", ];
+const html = '<ul><li>' +attributes.join('</li><li>') + '</li></ul>';
+
+console.log(attributes);
+
