@@ -175,7 +175,37 @@ c.passengers;
 v.deployAirbags();
 c.deployAirbags();
 
-// Instnaces of the Car class can access all methods of the Vehicle class, but not the other way around.
+// Instances of the Car class can access all methods of the Vehicle class, but not the other way around.
+// PyCharm crash omitted a section on Polymorphism
+
+
+//MIXINS
+class InsurancePolicy() {}
+function makeInsurable(o){
+    o.addInsurancePolicy = function(p) {this.addInsurancePolicy = p;}
+    o.getInsurancePolicy = function() {return this.InsurancePolicy;}
+    o.isInsurancePolicy = function() { return !!htis.InsurancePolicy;}
+}
+
+console.log(InsurancePolicy());
+
+const car1 - new Car();
+car1.addInsurancePolicy(new InsurancePolicy());  //error
+
+const car1 = new Car();
+makeInsurable(car1);
+car1.addInsurancePolicy(new InsurancePolicy()); // this works
+
+
+makeInsurable(Car.prototype);
+const car1 = newCar();
+car1.addInsurancePolicy(new InsurancePolicy());  // this works
+
+// With the last solution, it's as if our methods have ALWAYS been  part of the class.
+
+
+
+
 
 
 
