@@ -103,3 +103,34 @@ b.setSecret('secret B');
 
 console.log(a.getSecret());
 console.log(b.getSecret());
+
+// Sets by definition must contain unique data
+
+const roles = new Set();
+roles.add("User");
+roles.add("Admin");
+roles.add("Manager");
+roles.add("User");  // "User" cannot be a separate instance of data.
+
+console.log(roles.size);
+
+//Weak Sets
+// Use case: Determine whether a given object is in a set or not.
+
+const naughty = new WeakSet();
+
+const children = [
+    {name: "Samantha"},
+    {name: "Sombrero"},
+    ];
+
+naughty.add(children[1]);
+for(let child of children) {
+    if(naughty.has(child))
+        console.log(`Coal for ${child.name}!`);
+    else
+        console.log(`Presents for ${child.name}!`);
+}
+
+console.log(naughty);
+
