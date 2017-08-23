@@ -45,3 +45,73 @@ try {
 
 console.log(email);
 
+// Throwing/Raising Errors (Intentional)
+// Convention: Throw and instanceof Error
+
+// const balance = 0;
+//
+// function billPay(amount, payee, account) {
+//     if(amount > account.balance)
+//         throw new Error("insufficient funds");
+//     account.transfer(payee, amount);
+// }
+//
+// console.log(billPay(0, "You", 2));
+
+
+// EVERY TIME YOU THROW AN ERROR YOU HAVE TO CATCH IT.
+// USE EXCEPTIONS AS THE LAST DEFENSE, FOR ERRORS THAT YOU CAN'T ANTICIPATE AND MANAGE ANTICIPATE ERRORS.
+
+
+function a(){
+    console.log('a: calling b');
+    b();
+    console.log('a: done');
+}
+
+function b() {
+   console.log('b: calling c');
+   c();
+   console.log('b: done');
+}
+
+
+function c() {
+   console.log('c: throwing error');
+   throw new Error('c error');
+   console.log('c: done');
+}
+
+function d() {
+   console.log('d: calling c');
+   c();
+   console.log('d: done');
+}
+
+try {
+    a();
+} catch(err) {
+    console.log(err.stack);
+}
+
+try {
+    d();
+} catch(err) {
+    console.log(err.stack);
+}
+
+// try catch finally
+
+function finallyFunc(){
+    try {
+        console.log("This line is executed...");
+        throw new Error("whoops");
+        console.log("This line is not executed...")
+    } catch (err) {
+        console.log("There was an error...");
+    } finally {
+        console.log("...always executed");
+        console.log("Perform clean up here");
+    }
+}
+console.log(finallyFunc());
