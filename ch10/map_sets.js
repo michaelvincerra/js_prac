@@ -64,3 +64,21 @@ for(let r of userRoles.values())
 for(let ur of userRoles.entries())
     console.log(`${ur[0].name}: ${ur[1]}`);
 
+// Using destructuring to get name(u.name) an role(r)
+
+for(let [u,r] of userRoles.entries())
+    console.log(`${u.name}: ${r}`);
+
+//Or use the spread ... operator
+
+console.log([...userRoles.values()]);
+
+// Delete an entry
+
+// userRoles.delete(u3);
+console.log(userRoles.size);
+
+// Delete all entries from a map
+
+userRoles.clear();
+console.log(userRoles.size);
