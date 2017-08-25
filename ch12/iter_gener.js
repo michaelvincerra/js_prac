@@ -99,6 +99,59 @@ for(let f of fib){
 
 // Generators
 // Generators are functions that use an iterator to control their execution
+// Generators: show 'function*' with asterisk; and can use 'yield'.
+
+function* rainbow(){
+    "use strict";
+    yield 'red';
+    yield 'orange';
+    yield 'yellow';
+    yield 'green';
+    yield 'blue';
+    yield 'indigo';
+    yield 'violet';
+}
+
+// When you call a generator, an 'iterator' is returned.
+
+// const it = rainbow();
+// console.log(it.next());
+
+// Now use a 'for of' loop to log ALL the colors of the rainbow!
+
+for(let color of rainbow()){
+    console.log(color);
+}
+
+
+function* interrogate(){
+    "use strict";
+    const name = yield "What is your name?";                // Because this has a yield, generator yields control to caller until a response
+    const color = yield "What is your favorite color?";     // ""
+    return `${name}'s favorite color is ${color}.`;
+}
+
+const it = interrogate();
+console.log(it.next());                                     // Initiates dialogue in Console. Next use Console to complete dialogue.
+
+
+
+// Generators and return
+
+function* abc(){
+    "use strict";
+    yield 'a';
+    yield 'b';
+    yield 'c';
+}
+
+const it = count();
+console.log(it.next());   // complete when done is true.
+
+for(let l of abc()){
+    console.log(l);
+}
+// recommended not to use 'return' in a generator; instead a useful value uses 'yield'  
 
 
 
