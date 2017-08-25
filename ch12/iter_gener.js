@@ -1,4 +1,4 @@
-"use strict";
+// "use strict";
 
 
 // New to ES6: Iterators and Generators
@@ -53,7 +53,7 @@
 
 // console.log(log);
 
-// Alternate Version
+// Alternate Version of the above
 class Log {
 
     [Symbol.iterator]() {
@@ -70,5 +70,38 @@ class Log {
 }
 
 console.log(Log);
+
+//Fibonacci sequence
+// Sum of previous two numbers in the sequence
+
+class FibonacciSequence {
+    [Symbol.iterator]() {
+        let a = 0, b= 1;
+        return {
+            next() {
+                let rval = {value: b, done: false};
+                b+=a;
+                a = rval.value;
+                return rval;
+            }
+        };
+    }
+}
+
+
+const fib = new FibonacciSequence();
+let i = 0;
+for(let f of fib){
+    console.log(f);
+    if(++i > 9) break;
+}
+
+
+// Generators
+// Generators are functions that use an iterator to control their execution
+
+
+
+
 
 
