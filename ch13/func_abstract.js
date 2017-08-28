@@ -216,6 +216,30 @@ console.log(sumOfSquares([1,2,3]));
 console.log(sumOfCubes([1,2,3]));
 
 
+// RECURSION
+// example
+
+// function findNeedle(haystack) {
+//     if(haystack.length ===0) return "No haystack here!";
+//     if(haystack.shift() === 'needle') return "Found it!";
+//     return findNeedle(haystack);  // Haystack has one fewer element
+// }
+//
+// findNeedle(['hay', 'hay', 'hay','hay','hay','hay','hay','hay', 'needle','hay']);
+//
+// console.log(findNeedle());
+
+
+function fact(n) {
+    if(n===1) return 1;
+    return n * fact(n-1);
+}
+
+
+
+
+
+
 
 
 
