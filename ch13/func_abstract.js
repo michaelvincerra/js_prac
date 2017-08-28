@@ -107,7 +107,6 @@ setInterval(function(){
 }, 500);
 
 
-// NOTE: Arguments are ALWAYS passed by value (not by the variable i).
 
 // function loopBody(i) {
 //     setTimedOut(function() {
