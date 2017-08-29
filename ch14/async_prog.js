@@ -82,4 +82,16 @@ function countdown() {
 }
 countdown();
 
+// Error first callbacks (callbacks make exception handling difficult).
+
+const fs = require('fs');
+
+const fname = 'may_or_may_not_exist.txt';
+fs.readFile(fname, function(err, data){
+    "use strict";
+    if(err) return console.error(`error reading file ${fname}: ${error.message}`); // Critical: 'return' console.error{... is important to see the error.
+    console.log(`${fname} contents: ${data}`);
+});
+
+ 
 
