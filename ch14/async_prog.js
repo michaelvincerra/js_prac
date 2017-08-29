@@ -84,14 +84,101 @@ countdown();
 
 // Error first callbacks (callbacks make exception handling difficult).
 
-const fs = require('fs');
+// const fs = require('fs');
+//
+// const fname = 'may_or_may_not_exist.txt';
+// fs.readFile(fname, function(err, data){
+//     "use strict";
+//     if(err) return console.error(`error reading file ${fname}: ${error.message}`); // Critical: 'return' console.error{... is important to see the error.
+//     console.log(`${fname} contents: ${data}`);
+// });
 
-const fname = 'may_or_may_not_exist.txt';
-fs.readFile(fname, function(err, data){
-    "use strict";
-    if(err) return console.error(`error reading file ${fname}: ${error.message}`); // Critical: 'return' console.error{... is important to see the error.
-    console.log(`${fname} contents: ${data}`);
-});
 
- 
+//  Promises
+//  How to address the shortcomings of callbacks
+//  Promises ensure that "callbacks are always handled in the same predictable manner."
+//  Promise can only be fulfilled OR rejected.
+
+function countdown(seconds){
+    return new Promise(function(resolve, reject){
+        for(let i=seconds; i>=0; i--){
+            setTimeout(function(){
+                if(i>0) console.log(i+ '...');
+                else resolve(console.log("Go!"));
+            }, (seconds-i)*1000);
+        }
+    });
+}
+
+// countdown(10);
+
+// Note HOW below function relies on promise param passed via function countdown
+// or take the result of the promise and use it...
+// Why is this useful?
+
+// countdown(5).then(
+//     function(){
+//         "use strict";
+//         console.log("Countdown completed successfully");
+//     },
+//     function(err){
+//         "use strict";
+//         console.log("Countdown experienced an error: " + err.message);
+//     }
+// );
+
+// const p = countdown(5);                                 // store the result of the promise in variable p
+// p.then(function(){                                      // use THEN handler with anonymous function (only 1 will be called)
+//     console.log("countdown completed successfully");
+// });
+//
+// p.catch(function(err){                                  // use ERR handler with anonymous function (only 1 will be called)
+//     console.log("countdown experienced an error: " +err.message);
+// });
+
+// esempio di superstizione negli stati uniti
+
+function countdown(seconds) {
+    return new Promise(function(resolve, reject){
+        "use strict";
+        for(let i=seconds; i>0; i--){
+            setTimeout(function(){
+                if(i===13) return reject(new Error("Definitely not counting that number!"));
+                if(i>0) console.log(i + '...');
+                else resolve(console.log("Go!"));
+            }, (seconds-i)*1000);
+        }
+    });
+}
+
+console.log(countdown(15));
+
+// EVENTS: Using Node's .EventEmitter
+// How to subscribe to an event? A callback.
+
+const EventEmitter = require('events').EventEmitter;
+
+class Countdown extends EventEmitter{
+    constructor(seconds, superstitious){
+        super();
+        this.seconds = seconds;
+        this.superstitious = !!superstitious;
+    }
+    go(){                           // starts the countdown and returns a promise.
+        const countdown = this;
+        return new Promise(function(resolve,reject){
+            for(let i=countdown.seconds; i>0; i--){
+                setTimeout(function(){
+                    if(countdown.superstitious && i==13)
+                        return reject(new Error("Definitely not counting that!"));
+                    countdown.emit('tick', i);
+                    if(i===0) resolve();
+                }, (countdown.seconds-i)*1000);
+            }
+        });
+    }
+}
+
+
+
 
