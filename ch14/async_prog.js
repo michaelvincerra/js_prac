@@ -167,33 +167,33 @@ function countdown(seconds) {
 //// jQuery also provides event listening: http://api.jquery.com/category/events/
 //
 
-const EventEmitter = require('events').EventEmitter;
+//const EventEmitter = require('events').EventEmitter;
 // require will require 'require.js' or to be used with node.js from the server side.
 
 
-class Countdown extends EventEmitter{
-    constructor(seconds, superstitious){
-        super();
-        this.seconds = seconds;
-        this.superstitious = !!superstitious;
-    }
-    go(){                           // starts the countdown and returns a promise.
-        const countdown = this;
-        return new Promise(function(resolve,reject){
-            for(let i=countdown.seconds; i>0; i--){
-                timeoutIds.push(setTimeout(function(){
-                if(countdown.superstitious && i ===13){
-                //clear all pending timeouts
-                timeoutIds.forEach(clearTimeout);
-                return reject(new Error("Definitely not counting that!"));
-                }
-                countdown.emit('tick', i);
-                if(i===0) resolve();
-                }, (countdown.seconds-i)*1000));
-            }
-        });
-    }
-}
+//class Countdown extends EventEmitter{
+//    constructor(seconds, superstitious){
+//        super();
+//        this.seconds = seconds;
+//        this.superstitious = !!superstitious;
+//    }
+//    go(){                           // starts the countdown and returns a promise.
+//        const countdown = this;
+//        return new Promise(function(resolve,reject){
+//            for(let i=countdown.seconds; i>0; i--){
+//                timeoutIds.push(setTimeout(function(){
+//                if(countdown.superstitious && i ===13){
+//                //clear all pending timeouts
+//                timeoutIds.forEach(clearTimeout);
+//                return reject(new Error("Definitely not counting that!"));
+//                }
+//                countdown.emit('tick', i);
+//                if(i===0) resolve();
+//                }, (countdown.seconds-i)*1000));
+//            }
+//        });
+//    }
+//}
 
 //const c = new Countdown(15, true)
 //.on('tick', function(i){
@@ -291,60 +291,82 @@ for(let i= 1; i <= 3; i++){
 
 // Problem below: Fails silently half the time with no console.log on 'reject'
 
-function launch() {
-    return new Promise(function(resolve, reject){
-    if(Math.random() < 0.5) return;
-        console.log("Lift off!");
-        setTimeout(function() {
-        resolve("In orbit!");
-}, 2*1000);  // very fast rocket
-});
-}
-
-console.log(launch());
+//function launch() {
+//    return new Promise(function(resolve, reject){
+//    if(Math.random() < 0.5) return;
+//        console.log("Lift off!");
+//        setTimeout(function() {
+//        resolve("In orbit!");
+//}, 2*1000);  // very fast rocket
+//});
+//}
+//
+//console.log(launch());
 
 // Above revised by adding a Timeout
 // A function that returns a promise that calls a function that returns a promise...
 
-function addTimeout(fn, timeout) {
-if(timeout ===undefined) timeout = 1000; //default timeout in seconds
-    return function (...args) {
-    return new Promise(function(resolve, reject){
-        const tid = setTimeout(reject, timeout,
-        new Error("promise timed out"));
-        fn(...args)
-            .then(function(...args){
-                clearTimeout(tid);
-                resolve(...args);
-              })
-              .catch(function(...args){
-                clearTimeout(tid);
-                reject(...args);
-                });
-                });
-         }
+//function addTimeout(fn, timeout) {
+//if(timeout ===undefined) timeout = 1000; //default timeout in seconds
+//    return function (...args) {
+//    return new Promise(function(resolve, reject){
+//        const tid = setTimeout(reject, timeout,
+//        new Error("promise timed out"));
+//        fn(...args)
+//            .then(function(...args){
+//                clearTimeout(tid);
+//                resolve(...args);
+//              })
+//              .catch(function(...args){
+//                clearTimeout(tid);
+//                reject(...args);
+//                });
+//                });
+//         }
+//    }
+//console.log(addTimeout(1, 100));
+//
+//// Revise below so that the promise settles.
+//const c = new Countdown(15, true)
+//
+//c.go()
+//    .then(addTimeout(launch, 4*1000)) // Timeout added here.
+//    .then(function(msg) {
+//    console.log(msg);
+//})
+//.catch(function(err){
+//    console.error("Houston we have a problem.");
+//});
+
+
+// Generators
+// Combining generators with promises
+// Turn Nodes error-first callbacks into promises.
+
+//function nfCall(f, ...args){
+//    return new Promise(function(resolve, reject)  {
+//    f.call(null, ...args, function(err, ...args){
+//        if(err) return reject(err);
+//            resolve(args.length<2 ? args[0] : args);
+//        });
+//        });
+//      }
+//
+//console.log(nfCall());
+
+
+// Create promise timeout ptimeout
+//let delay = 10;
+function ptimeout(delay) {
+return new Promise(function(resolve, reject){
+    setTimeout(resolve, delay);
+    console.log(`Delay is ` + delay);
+
+    });
+
     }
-console.log(addTimeout(1, 100));
 
-// Revise below so that the promise settles.
-const c = new Countdown(15, true)
-
-c.go()
-    .then(addTimeout(launch, 4*1000)) // Timeout added here.
-    .then(function(msg) {
-    console.log(msg);
-})
-.catch(function(err){
-    console.error("Houston we have a problem.");
-});
-
-
-
-
-
-
-
-
+ptimeout(100);
 
 
 
