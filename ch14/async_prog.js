@@ -160,11 +160,12 @@ function countdown(seconds) {
     });
 }
 
-console.log(countdown(15));
-
-// EVENTS: Using Node's .EventEmitter
-// How to subscribe to an event? A callback.
-// jQuery also provides event listening: http://api.jquery.com/category/events/
+//console.log(countdown(15));
+//
+//// EVENTS: Using Node's .EventEmitter
+//// How to subscribe to an event? A callback.
+//// jQuery also provides event listening: http://api.jquery.com/category/events/
+//
 
 const EventEmitter = require('events').EventEmitter;
 // require will require 'require.js' or to be used with node.js from the server side.
@@ -211,27 +212,146 @@ class Countdown extends EventEmitter{
 
 //Promise Chaining
 
+//function launch() {
+//return new Promise(function(resolve, reject){
+//console.log("Lift off!");
+//setTimeout(function() {
+//resolve("In orbit!");
+//}, 2*1000);  // very fast rocket
+//});
+//}
+//
+//// Now chain this function to a countdown
+//const c = new Countdown(5)
+//    .on('tick', i => console.log(i+ '...'));
+//
+//
+//c.go()
+//    .then(launch)
+//    .then(function(msg) {
+//    console.log(msg);
+//})
+//.catch(function(err){
+//console.error("Houston we have a problem.");
+//})
+//
+//console.log(launch());
+
+
+
+// MORE EXAMPLES OF SETTIMEOUT FUNCTION
+
+console.log("Hello");
+setTimeout(function(){
+console.log("Goodbye!");
+}, 2000);
+console.log("Hello, again.")
+
+
+// USING CALLBACKS
+
+//var data = getData();
+//console.log("The data is: " + data);
+//we will pass in a callback function to getData:
+
+
+//getData(function (data) {
+//  console.log("The data is: " + data);
+//});
+
+// Simplify the above; directly pass in the callback, as follows:
+
+//let callback = [1, 2, 3]
+//function getData(callback) {
+//$.get("example.php", callback);
+//    }
+//console.log(getData);
+//
+//
+//// BAD EXAMPLE
+//for(var i = 1; i <= 3; i++) {
+//setTimeout(function(){
+//console.log(i + " seconds elapsed");
+//}, i *1000);
+//}
+
+//IMPROVED EXAMPLE WITH ES6
+// LET creates a new scope for 'i' in EACH iteration (thanks to ES6)!
+for(let i= 1; i <= 3; i++){
+    setTimeout(function(){
+    console.log(i +  " seconds elapsed");
+}, i*1000);
+}
+
+
+// Preventing Unsettled Promises
+// PROBLEM: Unsettled promises can get lost
+// SOLUTION: Specifify a timeout for promises
+
+
+// Problem below: Fails silently half the time with no console.log on 'reject'
+
 function launch() {
-return new Promise(function(resolve, reject){
-console.log("Lift off!");
-setTimeout(function() {
-resolve("In orbit!");
+    return new Promise(function(resolve, reject){
+    if(Math.random() < 0.5) return;
+        console.log("Lift off!");
+        setTimeout(function() {
+        resolve("In orbit!");
 }, 2*1000);  // very fast rocket
 });
 }
 
-// Now chain this function to a countdown
-const c = new Countdown(5)
-    .on('tick', i => console.log(i+ '...'));
+console.log(launch());
 
+// Above revised by adding a Timeout
+// A function that returns a promise that calls a function that returns a promise...
+
+function addTimeout(fn, timeout) {
+if(timeout ===undefined) timeout = 1000; //default timeout in seconds
+    return function (...args) {
+    return new Promise(function(resolve, reject){
+        const tid = setTimeout(reject, timeout,
+        new Error("promise timed out"));
+        fn(...args)
+            .then(function(...args){
+                clearTimeout(tid);
+                resolve(...args);
+              })
+              .catch(function(...args){
+                clearTimeout(tid);
+                reject(...args);
+                });
+                });
+         }
+    }
+console.log(addTimeout(1, 100));
+
+// Revise below so that the promise settles.
+const c = new Countdown(15, true)
 
 c.go()
-    .then(launch)
+    .then(addTimeout(launch, 4*1000)) // Timeout added here.
     .then(function(msg) {
     console.log(msg);
 })
 .catch(function(err){
-console.error("Houston we have a problem.");
-})
+    console.error("Houston we have a problem.");
+});
 
-console.log(launch()); 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
