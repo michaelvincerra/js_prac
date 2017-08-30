@@ -1,5 +1,14 @@
 // "use strict";
 
+// THIS
+//var person = {firstname: "John", lastname: "Doe"
+//fullName function() {
+//    console.log(this.firstname +" "+ this.lastname);
+//}
+//}
+
+
+
 /*
  ASYNCHRONOUS SUPPORT HAS 3 AREAS:
 - Call back:        A function that can be invoked in the future
@@ -155,8 +164,11 @@ console.log(countdown(15));
 
 // EVENTS: Using Node's .EventEmitter
 // How to subscribe to an event? A callback.
+// jQuery also provides event listening: http://api.jquery.com/category/events/
 
 const EventEmitter = require('events').EventEmitter;
+// require will require 'require.js' or to be used with node.js from the server side.
+
 
 class Countdown extends EventEmitter{
     constructor(seconds, superstitious){
@@ -168,17 +180,30 @@ class Countdown extends EventEmitter{
         const countdown = this;
         return new Promise(function(resolve,reject){
             for(let i=countdown.seconds; i>0; i--){
-                setTimeout(function(){
-                    if(countdown.superstitious && i==13)
-                        return reject(new Error("Definitely not counting that!"));
-                    countdown.emit('tick', i);
-                    if(i===0) resolve();
-                }, (countdown.seconds-i)*1000);
+                timeoutIds.push(setTimeout(function(){
+                if(countdown.superstitious && i ===13){
+                //clear all pending timeouts
+                timeoutIds.forEach(clearTimeout);
+                return reject(new Error("Definitely not counting that!"));
+                }
+                countdown.emit('tick', i);
+                if(i===0) resolve();
+                }, (countdown.seconds-i)*1000));
             }
         });
     }
 }
 
+const c = new Countdown(15, true)
+.on('tick', function(i){
+if(i>0) console.log(i + '...');
+});
 
+c.go()
 
-
+.then(function(){
+console.log('GO!');
+})
+.catch(function(err){
+console.error(err.message);
+})
