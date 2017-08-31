@@ -384,17 +384,66 @@ const x = it.next(val);
             })();
             }
 
+//function* theFutureIsNow() {
+//    const dataA = yield nfcall(fs.readFile, 'a.txt');
+//    const dataB = yield nfcall(fs.readFile, 'b.txt');
+//    const dataC = yield nfcall(fs.readFile, 'c.txt');
+//    yield ptimeout(60*1000);
+//    yield nfcall(fs.writeFile, 'd.txt', dataA+dataB+dataC);
+//
+//}
+//
+//genrun(theFutureIsNow);
+
+
+// Promise provides the method: Promise.all, which resolves when all the promises in an array resolve and
+// will executre asynchronous code in parallel if possible.
+
 function* theFutureIsNow() {
-    const dataA = yield nfcall(fs.readFile, 'a.txt');
-    const dataB = yield nfcall(fs.readFile, 'b.txt');
-    const dataC = yield nfcall(fs.readFile, 'c.txt');
+    const data = yield Promise.all([
+        nfcall(fs.readFile, 'a.txt');
+        nfcall(fs.readFile, 'b.txt');
+        nfcall(fs.readFile, 'c.txt');
+    ]);
+    yield ptimeout(60*1000);
+    yield nfcall(fs.writeFile, 'd.txt', data[0]+data[1]+data[2]);
+}
+
+// What parts of the program can be run in parallel?
+// What parts cannot be run in parallel?
+
+// If you designing websites, consider using: http://koajs.com/ , which is designed to work with 'co'
+// co generator is found at http://github.com/tj/co
+
+// Exception Handling
+
+// theFutureIsNow revised.....
+
+function* theFutureIsNow() {
+    let data;
+    try{
+        data = yield Promise.all([
+        nfcall(fs.readFile, 'a.txt'),
+        nfcall(fs.readFile, 'b.txt'),
+        nfcall(fs.readFile, 'c.txt'),
+    ]);
+    catch(err) {
+    console.error("Unable to read one or more input files: " + err.message);
+        throw err
+        }
+        yield ptimeout(60*1000);
+        try{
+            yield nfcall(fs.writeFile, 'd.txt', data[0]+data[1]+data[2]);
+        } catch(err) {
+        console.error("Unable to write output file: " + err.message);
+        }
+     }
     yield ptimeout(60*1000);
     yield nfcall(fs.writeFile, 'd.txt', dataA+dataB+dataC);
 
 }
 
 genrun(theFutureIsNow);
-
 
 
 
