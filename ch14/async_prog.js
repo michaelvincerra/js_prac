@@ -241,11 +241,11 @@ function countdown(seconds) {
 
 // MORE EXAMPLES OF SETTIMEOUT FUNCTION
 
-console.log("Hello");
-setTimeout(function(){
-console.log("Goodbye!");
-}, 2000);
-console.log("Hello, again.")
+//console.log("Hello");
+//setTimeout(function(){
+//console.log("Goodbye!");
+//}, 2000);
+//console.log("Hello, again.")
 
 
 // USING CALLBACKS
@@ -343,16 +343,16 @@ for(let i= 1; i <= 3; i++){
 // Combining generators with promises
 // Turn Nodes error-first callbacks into promises.
 
-//function nfCall(f, ...args){
-//    return new Promise(function(resolve, reject)  {
-//    f.call(null, ...args, function(err, ...args){
-//        if(err) return reject(err);
-//            resolve(args.length<2 ? args[0] : args);
-//        });
-//        });
-//      }
-//
-//console.log(nfCall());
+function nfcall(f, ...args){
+    return new Promise(function(resolve, reject)  {
+    f.call(null, ...args, function(err, ...args){
+        if(err) return reject(err);
+            resolve(args.length<2 ? args[0] : args);
+        });
+        });
+      }
+
+//console.log(nfcall());
 
 
 // Create promise timeout ptimeout
@@ -366,8 +366,34 @@ return new Promise(function(resolve, reject){
 
     }
 
-ptimeout(100);
+//ptimeout(100);
 
+// highly recommended to read: http://davidwalsh.name/es6-generators
+
+function genrun(g) {
+const it = g();
+(function iterate(val){
+const x = it.next(val);
+    if(!x.done) {
+    if(x.value  instanceof Promise) {
+        x.value.then(iterate).catch(err => it.throw(err));
+        } else {
+            setTimeout(iterate, 0, x.value);
+            }
+            }
+            })();
+            }
+
+function* theFutureIsNow() {
+    const dataA = yield nfcall(fs.readFile, 'a.txt');
+    const dataB = yield nfcall(fs.readFile, 'b.txt');
+    const dataC = yield nfcall(fs.readFile, 'c.txt');
+    yield ptimeout(60*1000);
+    yield nfcall(fs.writeFile, 'd.txt', dataA+dataB+dataC);
+
+}
+
+genrun(theFutureIsNow);
 
 
 
