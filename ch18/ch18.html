@@ -22,6 +22,10 @@
                 <h1>Simple HTML</h1>
             </header>
 
+
+
+
+
             <div id="content">
                     <p>This is a <i>simple</i> HTML file.</p>
 
@@ -37,5 +41,28 @@
                 </div>
 
             </div>
+
+            <div class="serverInfo">
+                Server is running on <span data-replace="platform">???</span>
+                with Node<span data-replace="nodeVersion">???</span> It has
+                been up for <span data-replace="uptime">???</span> seconds.
+            </div>
+
+        <script type="applicaton/javascript;version=1.8"></script>
+
+
+                function refreshServerInfo(){
+            const req = new XMLHttpRequest();
+            req.addEventListener('load', function(){
+            console.log(this.responseText);
+            req.open('GET', http://localhost:7070', true);
+            }
+           refreshServerinfo();
+        </script>
+
+
+
+
+
         </body>
 </html>
