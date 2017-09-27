@@ -106,6 +106,7 @@ countdown();
 //  Promises
 //  How to address the shortcomings of callbacks
 //  Promises ensure that "callbacks are always handled in the same predictable manner."
+//  Promises only happen ONCE
 //  Promise can only be fulfilled OR rejected.
 
 function countdown(seconds){
@@ -399,15 +400,15 @@ const x = it.next(val);
 // Promise provides the method: Promise.all, which resolves when all the promises in an array resolve and
 // will executre asynchronous code in parallel if possible.
 
-function* theFutureIsNow() {
-    const data = yield Promise.all([
-        nfcall(fs.readFile, 'a.txt');
-        nfcall(fs.readFile, 'b.txt');
-        nfcall(fs.readFile, 'c.txt');
-    ]);
-    yield ptimeout(60*1000);
-    yield nfcall(fs.writeFile, 'd.txt', data[0]+data[1]+data[2]);
-}
+//function* theFutureIsNow() {
+//    const data = yield Promise.all([
+//        nfcall(fs.readFile, 'a.txt');
+//        nfcall(fs.readFile, 'b.txt');
+//        nfcall(fs.readFile, 'c.txt');
+//    ]);
+//    yield ptimeout(60*1000);
+//    yield nfcall(fs.writeFile, 'd.txt', data[0]+data[1]+data[2]);
+//}
 
 // What parts of the program can be run in parallel?
 // What parts cannot be run in parallel?
@@ -419,31 +420,31 @@ function* theFutureIsNow() {
 
 // theFutureIsNow revised.....
 
-function* theFutureIsNow() {
-    let data;
-    try{
-        data = yield Promise.all([
-        nfcall(fs.readFile, 'a.txt'),
-        nfcall(fs.readFile, 'b.txt'),
-        nfcall(fs.readFile, 'c.txt'),
-    ]);
-    catch(err) {
-    console.error("Unable to read one or more input files: " + err.message);
-        throw err
-        }
-        yield ptimeout(60*1000);
-        try{
-            yield nfcall(fs.writeFile, 'd.txt', data[0]+data[1]+data[2]);
-        } catch(err) {
-        console.error("Unable to write output file: " + err.message);
-        }
-     }
-    yield ptimeout(60*1000);
-    yield nfcall(fs.writeFile, 'd.txt', dataA+dataB+dataC);
-
-}
-
-genrun(theFutureIsNow);
+//function* theFutureIsNow() {
+//    let data;
+//    try{
+//        data = yield Promise.all([
+//        nfcall(fs.readFile, 'a.txt'),
+//        nfcall(fs.readFile, 'b.txt'),
+//        nfcall(fs.readFile, 'c.txt'),
+//    ]);
+//    catch(err) {
+//    console.error("Unable to read one or more input files: " + err.message);
+//        throw err
+//        }
+//        yield ptimeout(60*1000);
+//        try{
+//            yield nfcall(fs.writeFile, 'd.txt', data[0]+data[1]+data[2]);
+//        } catch(err) {
+//        console.error("Unable to write output file: " + err.message);
+//        }
+//     }
+//    yield ptimeout(60*1000);
+//    yield nfcall(fs.writeFile, 'd.txt', dataA+dataB+dataC);
+//
+//}
+//
+//genrun(theFutureIsNow);
 
 
 
